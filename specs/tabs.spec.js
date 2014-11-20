@@ -45,6 +45,14 @@ describe('react-tabs', function () {
 			assertTabSelected(tabs, 1);
 		});
 
+		it('should honor selectedIndex prop after initial render', function () {
+			var tabs = TestUtils.renderIntoDocument(createTabs({selectedIndex: 1}));
+			assertTabSelected(tabs, 1);
+
+			tabs.setProps({selectedIndex: 0});
+			assertTabSelected(tabs, 0);
+		});
+
 		it('should call onSelect when selection changes', function () {
 			var called = {index: -1, last: -1},
 				tabs = TestUtils.renderIntoDocument(createTabs({onSelect: function (index, last) {
@@ -84,6 +92,7 @@ describe('react-tabs', function () {
 			TestUtils.Simulate.click(tabs.getTab(1).getDOMNode());
 			assertTabSelected(tabs, 1);
 		});
+
 		it('should update selectedIndex when tab child is clicked', function () {
 			var tabs = TestUtils.renderIntoDocument(createTabs());
 
